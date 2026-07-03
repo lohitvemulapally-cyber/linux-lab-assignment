@@ -1,1 +1,37 @@
+=== Question 1: Linux Environment Verification - Commands & Outputs ===
+
+$ whoami
+lohit
+
+$ groups
+lohit adm cdrom sudo dip plugdev users
+
+$ id
+uid=1000(lohit) gid=1000(lohit) groups=1000(lohit),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)
+
+$ echo $SHELL
+/bin/bash
+
+$ ps -p $$
+    PID TTY          TIME CMD
+    336 pts/0    00:00:00 bash
+
+$ pwd
+/home/lohit/lab-assignment/Q1_Environment_Verification
+
+$ ls -la
+total 8
+drwxr-xr-x 2 lohit lohit 4096 Jul  3 06:13 .
+drwxr-xr-x 3 lohit lohit 4096 Jul  3 06:13 ..
+
+$ ping -c 4 google.com
+PING google.com (172.217.24.174) 56(84) bytes of data.
+64 bytes from lcmaaa-bc-in-f14.1e100.net (172.217.24.174): icmp_seq=1 ttl=116 time=112 ms
+64 bytes from lcmaaa-bc-in-f14.1e100.net (172.217.24.174): icmp_seq=2 ttl=116 time=199 ms
+64 bytes from lcmaaa-bc-in-f14.1e100.net (172.217.24.174): icmp_seq=3 ttl=116 time=28.9 ms
+64 bytes from lcmaaa-bc-in-f14.1e100.net (172.217.24.174): icmp_seq=4 ttl=116 time=27.9 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 27.911/91.772/198.592/70.434 ms
 
