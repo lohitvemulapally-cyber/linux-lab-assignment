@@ -1,1 +1,66 @@
+=== Question 3: File System and Link Analysis - Commands & Outputs ===
 
+$ echo "This is the original file for link analysis." > original.txt
+$ cat original.txt
+This is the original file for link analysis.
+
+$ ln original.txt hardlink.txt
+$ ln -s original.txt symlink.txt
+$ ls -l
+total 8
+-rw-r--r-- 2 lohit lohit 45 Jul  3 08:11 hardlink.txt
+-rw-r--r-- 2 lohit lohit 45 Jul  3 08:11 original.txt
+lrwxrwxrwx 1 lohit lohit 12 Jul  3 08:11 symlink.txt -> original.txt
+
+$ ls -li
+44894 -rw-r--r-- 2 lohit lohit 45 Jul  3 08:11 hardlink.txt
+44894 -rw-r--r-- 2 lohit lohit 45 Jul  3 08:11 original.txt
+44932 lrwxrwxrwx 1 lohit lohit 12 Jul  3 08:11 symlink.txt -> original.txt
+
+$ stat original.txt
+  File: original.txt
+  Size: 45        Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 44894      Links: 2
+Access: (0644/-rw-r--r--)  Uid: ( 1000/   lohit)   Gid: ( 1000/   lohit)
+Access: 2026-07-03 08:11:56.952931031 +0000
+Modify: 2026-07-03 08:11:56.928931030 +0000
+Change: 2026-07-03 08:11:56.964931031 +0000
+ Birth: 2026-07-03 08:11:56.928931030 +0000
+
+$ stat hardlink.txt
+  File: hardlink.txt
+  Size: 45        Blocks: 8          IO Block: 4096   regular file
+Device: 8,48    Inode: 44894      Links: 2
+Access: (0644/-rw-r--r--)  Uid: ( 1000/   lohit)   Gid: ( 1000/   lohit)
+Access: 2026-07-03 08:11:56.952931031 +0000
+Modify: 2026-07-03 08:11:56.928931030 +0000
+Change: 2026-07-03 08:11:56.964931031 +0000
+ Birth: 2026-07-03 08:11:56.928931030 +0000
+
+$ stat symlink.txt
+  File: 'symlink.txt' -> 'original.txt'
+  Size: 12        Blocks: 0          IO Block: 4096   symbolic link
+Device: 8,48    Inode: 44932      Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: ( 1000/   lohit)   Gid: ( 1000/   lohit)
+Access: 2026-07-03 08:11:56.984931031 +0000
+Modify: 2026-07-03 08:11:56.972931031 +0000
+Change: 2026-07-03 08:11:56.972931031 +0000
+ Birth: 2026-07-03 08:11:56.972931031 +0000
+
+$ echo "Extra line added via original." >> original.txt
+$ cat hardlink.txt
+This is the original file for link analysis.
+Extra line added via original.
+$ cat symlink.txt
+This is the original file for link analysis.
+Extra line added via original.
+
+$ rm original.txt
+$ cat hardlink.txt
+This is the original file for link analysis.
+Extra line added via original.
+$ cat symlink.txt
+cat: symlink.txt: No such file or directory
+$ ls -li
+44894 -rw-r--r-- 1 lohit lohit 76 Jul  3 08:14 hardlink.txt
+44932 lrwxrwxrwx 1 lohit lohit 12 Jul  3 08:11 symlink.txt -> original.txt
