@@ -1,1 +1,45 @@
+=== Question 2: Secure Project Workspace Setup - Commands & Outputs ===
 
+$ umask
+0022
+
+$ mkdir -p ProjectAlpha/{docs,scripts,data}
+$ ls -la ProjectAlpha
+total 20
+drwxr-xr-x 5 lohit lohit 4096 Jul  3 06:44 .
+drwxr-xr-x 3 lohit lohit 4096 Jul  3 06:44 ..
+drwxr-xr-x 2 lohit lohit 4096 Jul  3 06:44 data
+drwxr-xr-x 2 lohit lohit 4096 Jul  3 06:44 docs
+drwxr-xr-x 2 lohit lohit 4096 Jul  3 06:44 scripts
+
+$ touch ProjectAlpha/docs/plan.txt
+$ ls -l ProjectAlpha/docs/plan.txt
+-rw-r--r-- 1 lohit lohit 0 Jul  3 06:45 ProjectAlpha/docs/plan.txt
+
+$ chmod 750 ProjectAlpha/docs/plan.txt
+$ ls -l ProjectAlpha/docs/plan.txt
+-rwxr-x--- 1 lohit lohit 0 Jul  3 06:45 ProjectAlpha/docs/plan.txt
+
+$ ls -l ProjectAlpha/docs/plan.txt
+$ stat ProjectAlpha/docs/plan.txt
+  File: ProjectAlpha/docs/plan.txt
+  Size: 0         Blocks: 0          IO Block: 4096   regular empty file
+Device: 8,48    Inode: 44942      Links: 1
+Access: (0750/-rwxr-x---)  Uid: ( 1000/   lohit)   Gid: ( 1000/   lohit)
+Access: 2026-07-03 06:45:16.156531221 +0000
+Modify: 2026-07-03 06:45:16.156531221 +0000
+Change: 2026-07-03 06:45:46.656523120 +0000
+ Birth: 2026-07-03 06:45:16.156531221 +0000
+
+$ umask 027
+$ touch ProjectAlpha/scripts/deploy.sh
+$ ls -l ProjectAlpha/scripts/deploy.sh
+-rw-r----- 1 lohit lohit 0 Jul  3 06:46 ProjectAlpha/scripts/deploy.sh
+
+$ umask
+0027
+
+$ umask 022
+$ sudo chown $USER:$USER ProjectAlpha/docs/plan.txt
+$ ls -l ProjectAlpha/docs/plan.txt
+-rwxr-x--- 1 lohit lohit 0 Jul  3 06:45 ProjectAlpha/docs/plan.txt
